@@ -20,6 +20,7 @@ helm:
         cloudflare-email: i@negash.ru
         domain: gorizond.negash.ru
       labels:
+        longhorn: enabled
         fleet-cert-manager: enabled
       clusterCidr: 10.52.0.0/16
       serviceCidr: 10.53.0.0/16
