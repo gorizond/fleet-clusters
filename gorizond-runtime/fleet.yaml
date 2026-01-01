@@ -19,6 +19,8 @@ helm:
         gorizond.domain.k3s: k3s.gorizond.negash.ru
         cloudflare-email: i@negash.ru
         domain: gorizond.negash.ru
+      labels:
+        fleet-cert-manager: enabled
       clusterCidr: 10.52.0.0/16
       serviceCidr: 10.53.0.0/16
       clusterDomain: gorizond-runtime.local
