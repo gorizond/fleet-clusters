@@ -60,11 +60,6 @@ additionalManifest: |-
       controller:
         metrics:
           enabled: true
-        service:
-          enableHttp: true
-          enableHttps: true
-          enabled: true
-          externalTrafficPolicy: Local
         allowSnippetAnnotations: true
         extraArgs:
           default-ssl-certificate: "default/gorizond-wildcard-cert"
