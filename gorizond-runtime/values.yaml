@@ -63,6 +63,7 @@ additionalManifest: |-
         allowSnippetAnnotations: true
         extraArgs:
           default-ssl-certificate: "default/gorizond-wildcard-cert"
+          enable-ssl-passthrough: "true"
         nodeSelector:
           nodepool: loadbalancer
         config:
