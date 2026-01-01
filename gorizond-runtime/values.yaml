@@ -66,6 +66,8 @@ additionalManifest: |-
           enabled: true
           externalTrafficPolicy: Local
         allowSnippetAnnotations: true
+        extraArgs:
+          default-ssl-certificate: "default/gorizond-wildcard-cert"
         nodeSelector:
           nodepool: loadbalancer
         config:
