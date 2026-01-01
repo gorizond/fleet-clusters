@@ -1,0 +1,112 @@
+cluster:
+  name: g-cluster
+  labels: {}
+  annotations: {}
+  clusterCidr: 10.42.0.0/16
+  serviceCidr: 10.43.0.0/16
+  clusterDomain: gorizond-cluster.local
+
+cloudCredentialSecretName: cattle-global-data:cc-8xdcl
+
+kubernetesVersion: v1.34.1+rke2r1
+cni: canal
+
+registries:
+  mirrors:
+    docker.io:
+      endpoint:
+        - https://mirror.gcr.io
+
+makecloud:
+  baseUrl: https://cp.iteco.cloud
+  storageProfileId: e8896dee-e43a-4928-bb1f-6b69188e62f2
+  templateId: ea0a65db-3a9b-4b9a-a7a0-74c9d22a47b1
+  sshUser: ubuntu
+  allocateFloatingIp: false
+
+nodepools:
+  - name: brain
+    etcd: true
+    controlplane: true
+    quantity: 1
+    cpu: 2
+    memory: 4
+    disk: 60
+  - name: worker
+    worker: true
+    quantity: 1
+    cpu: 2
+    memory: 4
+    disk: 60
+    autoscale: true
+  - name: lb
+    worker: true
+    allocateFloatingIp: true
+    quantity: 1
+    cpu: 2
+    memory: 4
+    disk: 60
+    labels:
+      nodepool: loadbalancer
+
+additionalManifest: |-
+  apiVersion: helm.cattle.io/v1
+  kind: HelmChartConfig
+  metadata:
+    name: rke2-ingress-nginx
+    namespace: kube-system
+  spec:
+    valuesContent: |-
+      controller:
+        metrics:
+          enabled: true
+        service:
+          enableHttp: true
+          enableHttps: true
+          enabled: true
+          externalTrafficPolicy: Local
+        allowSnippetAnnotations: true
+        nodeSelector:
+          nodepool: loadbalancer
+        config:
+          enable-underscores-in-headers: "true"
+          strict-validate-path-type: "false"
+          allow-snippet-annotations: "true"
+          annotations-risk-level: Critical
+        tolerations:
+        - effect: NoSchedule
+          key: loadbalancer
+          operator: Equal
+          value: service
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+upgradeStrategy:
+  controlPlaneConcurrency: "1"
+  controlPlaneDrainOptions:
+    deleteEmptyDirData: true
+    disableEviction: false
+    enabled: true
+    force: false
+    gracePeriod: -1
+    ignoreDaemonSets: true
+    ignoreErrors: false
+    skipWaitForDeleteTimeoutSeconds: 0
+    timeout: 120
+  workerConcurrency: "1"
+  workerDrainOptions:
+    deleteEmptyDirData: true
+    disableEviction: false
+    enabled: true
+    force: false
+    gracePeriod: -1
+    ignoreDaemonSets: true
+    ignoreErrors: false
+    skipWaitForDeleteTimeoutSeconds: 0
+    timeout: 120
+
+etcd:
+  disableSnapshots: false
+  snapshotRetention: 12
+  snapshotScheduleCron: 0 */4 * * *

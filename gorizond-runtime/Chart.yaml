@@ -1,0 +1,4 @@
+apiVersion: v1
+name: g-cluster
+description: RKE2 cluster on MakeCloud cloud
+version: 0.0.1

@@ -1,0 +1,19 @@
+defaultNamespace: fleet-default
+
+diff:
+  comparePatches:
+    - apiVersion: provisioning.cattle.io/v1
+      kind: Cluster
+      name: g-runtime
+      namespace: fleet-default
+      operations:
+        - {"op": "remove", "path": "/spec/rkeConfig/additionalManifest"}
+        - {"op": "remove", "path": "/spec/rkeConfig/machinePools/1/quantity"} # autoscaler
+
+helm:
+  values: 
+    cluster:
+      name: g-runtime
+      clusterCidr: 10.52.0.0/16
+      serviceCidr: 10.53.0.0/16
+      clusterDomain: gorizond-runtime.local
