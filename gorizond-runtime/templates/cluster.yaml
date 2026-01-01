@@ -59,8 +59,6 @@ spec:
 {{ toYaml .Values.additionalManifest | indent 6 }}
     machineSelectorConfig:
       - config:
-          cloud-provider-config: ''
-          cloud-provider-name: external
           embedded-registry: true
           supervisor-metrics: true
     registries:
