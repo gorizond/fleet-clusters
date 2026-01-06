@@ -85,7 +85,7 @@ upgradeStrategy:
   controlPlaneDrainOptions:
     deleteEmptyDirData: true
     disableEviction: false
-    enabled: true
+    enabled: false
     force: false
     gracePeriod: -1
     ignoreDaemonSets: true
@@ -96,7 +96,7 @@ upgradeStrategy:
   workerDrainOptions:
     deleteEmptyDirData: true
     disableEviction: false
-    enabled: true
+    enabled: false
     force: false
     gracePeriod: -1
     ignoreDaemonSets: true
