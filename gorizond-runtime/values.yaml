@@ -8,7 +8,7 @@ cluster:
 
 cloudCredentialSecretName: cattle-global-data:cc-8xdcl
 
-kubernetesVersion: v1.34.1+rke2r1
+kubernetesVersion: v1.34.2+rke2r1
 cni: canal
 
 registries:
