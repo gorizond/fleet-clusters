@@ -36,7 +36,7 @@ spec:
       {{- if $nodepool.autoscale }}
       machineDeploymentAnnotations:
         cluster.provisioning.cattle.io/autoscaler-max-size: '100'
-        cluster.provisioning.cattle.io/autoscaler-min-size: '1'
+        cluster.provisioning.cattle.io/autoscaler-min-size: '{{ $nodepool.quantity }}'
       {{- end }}
       {{- if $nodepool.labels }}
       labels:
