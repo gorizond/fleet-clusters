@@ -34,7 +34,7 @@ nodepools:
     disk: 60
   - name: worker
     worker: true
-    quantity: 5
+    quantity: 6
     cpu: 2
     memory: 4
     disk: 60
